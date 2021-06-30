@@ -16,8 +16,8 @@ class Gallery extends Model
         'url'
     ];
 
-    public function getUrlAttribute($url)
-    {
-        return url('storage/'.$url);
-    }
+    // public function getUrlAttribute($url)
+    // {
+    //     return url('storage/'.$url);
+    // }
 }

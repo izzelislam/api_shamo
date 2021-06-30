@@ -22,7 +22,6 @@ class GallerySeeder extends Seeder
 
         for ($i=0; $i < 200 ; $i++) { 
             Gallery::create([
-                'products_id' => $faker->randomElement($product_id),
                 'url'        => $faker->randomElement([
                     's-1.jpeg',
                     's-2.jpeg',

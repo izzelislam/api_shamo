@@ -13,44 +13,44 @@ use Laravel\Fortify\Rules\Password;
 
 class UserController extends Controller
 {
-    public function register(Request $request)
-    {
-        try {
-            $request->validate([
-                'name'     => ['required', 'string', 'max:255' ],
-                'username' => ['required', 'string', 'unique:users', 'max:255'],
-                'email'    => ['required', 'email', 'unique:users', 'max:255'],
-                'phone'    => ['nullable', 'string', 'max:255' ],
-                'password' => ['required', 'string']
-            ]);
+	public function register(Request $request)
+	{
+		try {
+				$request->validate([
+						'name'     => ['required', 'string', 'max:255' ],
+						'username' => ['required', 'string', 'unique:users', 'max:255'],
+						'email'    => ['required', 'email', 'unique:users', 'max:255'],
+						'phone'    => ['nullable', 'string', 'max:255' ],
+						'password' => ['required', 'string']
+				]);
 
-            $request->merge([
-                'password' => Hash::make($request->password)
-            ]);
+				$request->merge([
+						'password' => Hash::make($request->password)
+				]);
 
-            $user  = User::create($request->all());
-            $token = $user->createToken('authToken')->plainTextToken;
+				$user  = User::create($request->all());
+				$token = $user->createToken('authToken')->plainTextToken;
 
-            return ResponseFormatter::success(
-                [
-                    'acces_token' => $token,
-                    'token_type'  => 'Bearer',
-                    'user'        => $user
-                ],
-                'berhasil daftar'
-            );
+				return ResponseFormatter::success(
+						[
+								'acces_token' => $token,
+								'token_type'  => 'Bearer',
+								'user'        => $user
+						],
+						'berhasil daftar'
+				);
 
-        } catch (Exception $error) {
-            return ResponseFormatter::error(
-                [
-                    'message' => 'something when wrong',
-                    'error'   => $error
-                ],
-                'gagal authentikasi',
-                '500'
-            );
-        }
-    }
+		} catch (Exception $error) {
+				return ResponseFormatter::error(
+						[
+								'message' => 'something when wrong',
+								'error'   => $error
+						],
+						'gagal authentikasi',
+						'500'
+				);
+		}
+	}
 
 	public function login(Request $request)
 	{
